@@ -27,6 +27,7 @@ class ComposerStaticInit1921bd8417157663ed36de5a14ad871e
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\Console\\' => 26,
         ),
@@ -76,6 +77,10 @@ class ComposerStaticInit1921bd8417157663ed36de5a14ad871e
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Symfony\\Component\\HttpFoundation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
         'Symfony\\Component\\Debug\\' => 
         array (
@@ -159,17 +164,21 @@ class ComposerStaticInit1921bd8417157663ed36de5a14ad871e
         'Core\\App\\Application' => __DIR__ . '/../..' . '/engine/Core/App/Application.php',
         'Core\\App\\Bootstrap' => __DIR__ . '/../..' . '/engine/Core/App/Bootstrap.php',
         'Core\\App\\EntityManager' => __DIR__ . '/../..' . '/engine/Core/App/EntityManager.php',
+        'Core\\App\\Kernel' => __DIR__ . '/../..' . '/engine/Core/App/Kernel.php',
         'Core\\App\\Request' => __DIR__ . '/../..' . '/engine/Core/App/Request.php',
         'Core\\App\\Router' => __DIR__ . '/../..' . '/engine/Core/App/Router.php',
         'Core\\App\\View' => __DIR__ . '/../..' . '/engine/Core/App/View.php',
         'Core\\Components\\Bundle' => __DIR__ . '/../..' . '/engine/Core/Components/Bundle.php',
         'Core\\Components\\Controller' => __DIR__ . '/../..' . '/engine/Core/Components/Controller.php',
         'Core\\Components\\Model' => __DIR__ . '/../..' . '/engine/Core/Components/Model.php',
+        'Core\\Console\\Bootstrap' => __DIR__ . '/../..' . '/engine/Core/Console/Bootstrap.php',
+        'Core\\Console\\Kernel' => __DIR__ . '/../..' . '/engine/Core/Console/Kernel.php',
+        'Core\\Interfaces\\Bootstrap' => __DIR__ . '/../..' . '/engine/Core/Interfaces/Bootstrap.php',
         'Core\\Interfaces\\Kernel' => __DIR__ . '/../..' . '/engine/Core/Interfaces/Kernel.php',
-        'Core\\Kernel' => __DIR__ . '/../..' . '/engine/Core/Kernel.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'Models\\Product' => __DIR__ . '/../..' . '/engine/Models/Product.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',

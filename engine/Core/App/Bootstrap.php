@@ -2,15 +2,15 @@
 
 
 namespace Core\App;
+use Core\Interfaces\Bootstrap as BootstrapInterface;
 
-
-class Bootstrap
+class Bootstrap implements BootstrapInterface
 {
     protected $request;
     protected $modelManager;
     protected $router;
     protected $application;
-    protected $view;
+    protected $response;
     protected $session;
     protected $cookies;
 
@@ -31,14 +31,6 @@ class Bootstrap
     }
 
     /**
-     * @param mixed $router
-     */
-    public function setRouter($router): void
-    {
-        $this->router = $router;
-    }
-
-    /**
      * @param Application $application
      */
     public function setApplication(Application $application): void
@@ -53,27 +45,10 @@ class Bootstrap
     /**
      * @param mixed $view
      */
-    public function setView($view): void
+    public function setResponse($response): void
     {
-        $this->view = $view;
+        $this->view = $response;
     }
-
-    /**
-     * @param mixed $cookies
-     */
-    public function setCookies($cookies): void
-    {
-        $this->cookies = $cookies;
-    }
-
-    /**
-     * @param mixed $session
-     */
-    public function setSession($session): void
-    {
-        $this->session = $session;
-    }
-
 
     /**
      * @return mixed
@@ -81,14 +56,6 @@ class Bootstrap
     public function getApplication()
     {
         return $this->application;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCookies()
-    {
-        return $this->cookies;
     }
 
     /**
@@ -118,21 +85,14 @@ class Bootstrap
     /**
      * @return mixed
      */
-    public function getSession()
+    public function getResponse()
     {
-        return $this->session;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getView()
-    {
-        return $this->view;
+        return $this->response;
     }
 
     public function start(){
         date_default_timezone_set($this->application->getAppConfig('timezone'));
-        var_dump($this->application->getAppConfig('timezone'));exit;
+
+        var_dump($this->request);exit;
     }
 }

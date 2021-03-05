@@ -364,6 +364,15 @@ private static $installed = array (
       ),
       'reference' => 'ab42889de57fdfcfcc0759ab102e2fd4ea72dcae',
     ),
+    'symfony/http-foundation' => 
+    array (
+      'pretty_version' => 'v3.4.47',
+      'version' => '3.4.47.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b9885fcce6fe494201da4f70a9309770e9d13dc8',
+    ),
     'symfony/polyfill-ctype' => 
     array (
       'pretty_version' => 'v1.22.1',
@@ -381,6 +390,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '5232de97ee3b75b0360528dae24e73db49566ab1',
+    ),
+    'symfony/polyfill-php70' => 
+    array (
+      'pretty_version' => 'v1.20.0',
+      'version' => '1.20.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5f03a781d984aae42cebd18e7912fa80f02ee644',
     ),
     'symfony/yaml' => 
     array (

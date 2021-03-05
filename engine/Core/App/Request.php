@@ -1,8 +1,16 @@
 <?php
 namespace Core\App;
 
-
-class Request
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
+class Request extends HttpRequest
 {
+    /**
+     * @return HttpRequest
+     */
+    public static function createBaseRequest(): HttpRequest
+    {
+        static::enableHttpMethodParameterOverride();
 
+        return HttpRequest::createFromGlobals();
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 return [
-    'driver' => 'mysql',
+    'driver' => 'mysqli',
     'host' => 'http://localhost',
     'port' => 3306,
     'db_name' => 'torq',

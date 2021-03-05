@@ -4,7 +4,13 @@
 namespace Core\Components;
 
 
-class Model
+abstract class Model
 {
-
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

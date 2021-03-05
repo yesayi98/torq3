@@ -52,7 +52,7 @@ return [
     | Application will be save their caches in this path.
     |
     */
-    'cache_path' => '/cache/',
+    'cache_dir' => '/cache/',
 
     /*
       |--------------------------------------------------------------------------
@@ -62,5 +62,13 @@ return [
       | Application will be save their caches in this path.
       |
   */
-    'view_path' => '/resources/views/'
+    'view_path' => '/resources/views/',
+
+    'proxy_dir' => null,
+
+    'model_dirs' => [
+      'engine/Models',
+    ],
+
+    'use_annotation' => false
 ];
