@@ -4,7 +4,7 @@
     "license": "Apache-2.0",
     "version": "3.0.0",
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "phpseclib/phpseclib" : "~2.0",
         "ext-json": "*",
         "ext-curl": "*",
@@ -35,7 +35,7 @@
     },
     "config" : {
       "platform": {
-        "php": "7.1"
+        "php": "7.2"
       }
     }
 }
