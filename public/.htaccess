@@ -19,4 +19,4 @@ RewriteRule ^googlebase.xml$ index.php?route=feed/google_base [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css|ogg|woff|ttf)
-RewriteRule ^([^?]*) index.php?route=$1 [L,QSA]
+RewriteRule ^ index.php [L]

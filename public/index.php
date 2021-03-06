@@ -3,6 +3,8 @@ require __DIR__."/../vendor/autoload.php";
 
 $app = require_once __DIR__.'/../system/app.php';
 
-$kernel = $app->make(new \Core\App\Kernel());
+$bootstrap = $app->make(new \Core\App\Kernel());
 
-$kernel->start();
+$response = $bootstrap->start();
+
+$response->send();

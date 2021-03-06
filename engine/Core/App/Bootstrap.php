@@ -1,7 +1,7 @@
 <?php
 
-
 namespace Core\App;
+
 use Core\Interfaces\Bootstrap as BootstrapInterface;
 
 class Bootstrap implements BootstrapInterface
@@ -93,6 +93,14 @@ class Bootstrap implements BootstrapInterface
     public function start(){
         date_default_timezone_set($this->application->getAppConfig('timezone'));
 
-        var_dump($this->request);exit;
+        try {
+            $route = Router::run($this->request);
+            var_dump($route);exit;
+        }catch (\Exception $exception){
+            die($exception->getMessage());
+        }
+
+        
+
     }
 }

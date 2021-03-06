@@ -26,7 +26,6 @@ class Kernel implements KernelInterface
        $bootstrap = new Bootstrap($this->application);
        $bootstrap->setModelManager((new EntityManager($this->application))->getManager());
        $bootstrap->setRequest(Request::createBaseRequest());
-       $bootstrap->setResponse(Response::createResponse());
 
        return $bootstrap;
    }
