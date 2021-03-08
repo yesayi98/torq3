@@ -3,6 +3,9 @@
 
 namespace Core\App;
 
+use Core\Components\UrlParser;
+use Core\Interfaces\Controller;
+use Core\Interfaces\Module;
 use Symfony\Component\HttpFoundation\Request;
 
 class Router
@@ -22,6 +25,27 @@ class Router
         'action' => 'index'
     ];
 
+    protected $modules = [
+      'frontend',
+      'widgets',
+      'backend'
+    ];
+
+    /**
+     * @var Module
+     */
+    protected $module;
+
+    /**
+     * @var Controller
+     */
+    protected $controller;
+
+    /**
+     * @var string
+     */
+    protected $action;
+
     /**
      * @param Request $request
      */
@@ -38,30 +62,66 @@ class Router
         $this->setRequest($request);
     }
 
-    protected function setModule($module){
-        $this->route['module'] = $module;
-    }
-
-    protected function setController($controller){
-        $this->route['controller'] = $controller;
-    }
-
     protected function setAction($action){
-        $this->route['action'] = $action;
+        $this->action = $action;
+    }
+
+
+    /**
+     * @return array|string[]
+     */
+    public function getRoute(){
+        return $this->route;
+    }
+
+    public function run(){
+
+        $routPath = $this->request->getPathInfo();
+
+        $parsedUrl = new UrlParser($routPath);
+
+        $moduleName = $parsedUrl->getChunk(0, $this->getRoute()['module']);
+        if (!in_array($moduleName, $this->modules)){
+            $moduleName = $this->getRoute()['module'];
+        }else{
+            $parsedUrl->removeChunk(0);
+        }
+
+        $this->setModule($moduleName);
+
+        $controllerName = $parsedUrl->getChunk(0, $this->getRoute()['controller']);
+        $this->setController($controllerName);
+
+        $this->setAction($parsedUrl->getChunk(1, $this->getRoute()['action']));
+        $this->controller->endpoint($this->action);
+        $parameters = $this->controller->getParam($this->action,'parameter');
+        if (!empty($parameters)){
+            foreach ($parameters as $parameter) {
+                list($param, $value) = explode('|', $parameter);
+                $this->request->attributes->set($param, $parsedUrl->getChunk((int) $value));
+            }
+        }
+
+        return $this->controller->{$this->action}();
     }
 
     /**
-     * @param Request $request
+     * @param $moduleName
      */
-    public static function run(Request $request){
-        $router = new self($request);
-
-        $routPath = $request->getPathInfo();
-
-
-        var_dump($routPath);exit;
-
-        return $router;
+    protected function setModule($moduleName){
+        $modulePath = '\\Core\\Components\\Modules\\'.ucfirst($moduleName);
+        $this->module = new $modulePath;
     }
+
+    protected function setController($controllerName){
+        $controllerPath = $this->module->getPath('controller').ucfirst($controllerName).'Controller';
+
+        if (class_exists ($controllerPath)){
+            $this->controller = new $controllerPath($this->request);
+        }else{
+            $this->controller = new \Controllers\Frontend\ErrorController($this->request);
+        }
+    }
+
 
 }

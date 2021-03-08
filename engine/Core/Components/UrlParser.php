@@ -13,7 +13,7 @@ class UrlParser
 
     public function __construct(string $url)
     {
-        $this->chunks = explode('/', $url);
+        $this->chunks = array_values(array_filter(explode('/', $url)));
     }
 
     /**
@@ -26,13 +26,23 @@ class UrlParser
 
     /**
      * @param int $index
+     * @param null $default
      * @return mixed|string
      */
-    public function getChunk($index, $default){
+    public function getChunk($index, $default = null)
+    {
         if (!empty($this->chunks[$index])){
             return $this->chunks[$index];
         }else{
             return $default;
         }
+    }
+
+    public function removeChunk($index){
+        $chunks = $this->chunks;
+
+        array_splice($chunks, $index, 1);
+
+        $this->chunks = $chunks;
     }
 }

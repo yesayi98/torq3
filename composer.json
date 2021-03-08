@@ -1,6 +1,11 @@
 {
     "name": "torq/torq-cms",
-    "description": "E-Commerse Content management system",
+    "description": "The Torq CMS",
+    "type": "project",
+    "keywords": [
+        "framework",
+        "cms"
+    ],
     "license": "Apache-2.0",
     "version": "3.0.0",
     "require": {
