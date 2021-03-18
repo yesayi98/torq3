@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\App;
+namespace Torq\Core\App;
 
-use Core\Interfaces\Bootstrap as BootstrapInterface;
+use Torq\Core\Interfaces\Bootstrap as BootstrapInterface;
 
 class Bootstrap implements BootstrapInterface
 {
@@ -42,6 +42,21 @@ class Bootstrap implements BootstrapInterface
         $this->setApplication($application);
     }
 
+    /**
+     * @param mixed $session
+     */
+    public function setSession($session): void
+    {
+        $this->session = $session;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
     /**
      * @param mixed $view
      */
@@ -92,7 +107,7 @@ class Bootstrap implements BootstrapInterface
 
     public function start(){
         date_default_timezone_set($this->application->getAppConfig('timezone'));
-
+        $this->session->start();
         try {
             $route = new Router($this->request);
             $route->run();

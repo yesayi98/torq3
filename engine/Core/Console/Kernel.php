@@ -1,14 +1,12 @@
 <?php
 
 
-namespace Core\Console;
+namespace Torq\Core\Console;
 
-use Core\App\Application;
-use Core\App\EntityManager;
-use Core\App\Router;
-use Core\App\Response;
-use Core\App\Request;
-use Core\Interfaces\Kernel as KernelInterface;
+use Torq\Core\App\Application;
+use Torq\Core\Interfaces\Kernel as KernelInterface;
+use Symfony\Component\Console\Application as SymfonyConsoleApplication;
+use Symfony\Component\Finder\Finder;
 
 class Kernel implements KernelInterface
 {
@@ -25,16 +23,21 @@ class Kernel implements KernelInterface
         $this->application = $application;
     }
 
-    public function bootstrap()
+    public static function bootstrap()
     {
-        // TODO: Implement bootstrap() method.
-        $bootstrap = new Bootstrap($this->application);
-        $bootstrap->setRouter(new Router($this->application));
-        $bootstrap->setModelManager(new EntityManager($this->application));
-        $bootstrap->setRequest(Request::createBaseRequest());
-        $bootstrap->setView(new Response($this->application));
-        $bootstrap->setSession(new \SessionHandler());
+        $application = new SymfonyConsoleApplication();
 
-        return $bootstrap;
+        $finder = new Finder();
+        $finder->files()->in('engine/Commands');
+        if ($finder->hasResults()) {
+            foreach ($finder as $file) {
+                $fileName = pathinfo($file->getFilename())['filename'];
+                $className = '\\Torq\\Commands\\'.$fileName;
+                $application->add(new $className);
+            }
+        }
+
+
+        return $application;
     }
 }

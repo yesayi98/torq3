@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Core\Components\Modules;
+namespace Torq\Core\Components\Modules;
 
 
-use Core\Interfaces\Module;
+use Torq\Core\Interfaces\Module;
 
 class Widget implements Module
 {
     protected $paths = [
-        'controller' => 'Controllers\\Widgets\\',
+        'controller' => 'Torq\\Controllers\\Widgets\\',
     ];
 
     /**
@@ -21,6 +21,6 @@ class Widget implements Module
     }
 
     public function getPath($path, $default = null){
-        return !empty($path)?$path:$default;
+        return !empty($this->paths[$path])?$this->paths[$path]:$default;
     }
 }

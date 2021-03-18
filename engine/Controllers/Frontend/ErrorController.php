@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Controllers\Frontend;
+namespace Torq\Controllers\Frontend;
 
-use Core\Components\Controller;
+use Torq\Core\Components\Controller;
 
 class ErrorController extends Controller
 {

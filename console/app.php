@@ -4,6 +4,11 @@ require __DIR__."/../vendor/autoload.php";
 
 $app = require_once __DIR__.'/../system/app.php';
 
-$kernel = $app->make(new Core\Console\Kernel());
+function Container() {
+    global $app;
+    return $app->getContainer();
+}
 
-$kernel->start();
+$application = $app->make(Torq\Core\Console\Kernel::class, true);
+
+$application->run();

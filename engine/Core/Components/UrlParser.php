@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Components;
+namespace Torq\Core\Components;
 
 
 class UrlParser

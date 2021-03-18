@@ -1,3 +1,4 @@
 /vendor
 /media
+/cache
 /composer.lock

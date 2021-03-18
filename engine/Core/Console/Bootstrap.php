@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Core\Console;
+namespace Torq\Core\Console;
 
-use Core\App\Application;
-use Core\Interfaces\Bootstrap as BootstrapInterface;
+use Torq\Core\App\Application;
+use Torq\Core\Interfaces\Bootstrap as BootstrapInterface;
 
 class Bootstrap implements BootstrapInterface
 {

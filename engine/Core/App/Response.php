@@ -1,17 +1,14 @@
 <?php
 
 
-namespace Core\App;
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
+namespace Torq\Core\App;
 
-class Response extends HttpResponse
+use Torq\Core\Interfaces\Controller;
+
+class Response
 {
-  public static function createResponse(): Response
+  public function __construct(Controller $controller)
   {
-      return new self(
-          'Content',
-          Response::HTTP_OK,
-          ['content-type' => 'text/html']
-      );
+      dd($controller);
   }
 }

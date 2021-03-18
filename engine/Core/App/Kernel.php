@@ -1,13 +1,19 @@
 <?php
 
 
-namespace Core\App;
+namespace Torq\Core\App;
 
-use Core\Interfaces\Kernel as KernelInterface;
+use Torq\Core\Interfaces\Kernel as KernelInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\HttpKernel\HttpKernel;
 
-class Kernel implements KernelInterface
+class Kernel extends HttpKernel implements KernelInterface
 {
-    protected $application;
+   protected $application;
 
    public function getApplication()
    {
@@ -20,13 +26,17 @@ class Kernel implements KernelInterface
        $this->application = $application;
    }
 
-    public function bootstrap()
+   public static function bootstrap(): Kernel
    {
-       // TODO: Implement bootstrap() method.
-       $bootstrap = new Bootstrap($this->application);
-       $bootstrap->setModelManager((new EntityManager($this->application))->getManager());
-       $bootstrap->setRequest(Request::createBaseRequest());
+       $dispatcher = Container()->get('events');
+       // ... add some event listeners
 
-       return $bootstrap;
+       // create your controller and argument resolvers
+       $controllerResolver = Container()->get('controller_resolver');
+       $argumentResolver = Container()->get('argument_resolver');
+       Container()->get('session')->start();
+
+       // instantiate the kernel
+       return new self($dispatcher, $controllerResolver, new RequestStack(), $argumentResolver);
    }
 }

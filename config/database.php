@@ -1,9 +1,9 @@
 <?php
 return [
     'driver' => 'mysqli',
-    'host' => 'http://localhost',
+    'host' => 'localhost',
     'port' => 3306,
-    'db_name' => 'torq',
-    'db_username' => 'root',
-    'db_password' => ''
+    'dbname' => 'torq',
+    'user' => 'root',
+    'password' => ''
 ];

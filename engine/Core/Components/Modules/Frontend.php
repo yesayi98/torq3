@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Core\Components\Modules;
+namespace Torq\Core\Components\Modules;
 
 
-use Core\Interfaces\Module;
+use Torq\Core\Interfaces\Module;
 
 class Frontend implements Module
 {
     protected $paths = [
-        'controller' => 'Controllers\\Frontend\\',
+        'controller' => 'Torq\\Controllers\\Frontend\\',
     ];
 
     /**

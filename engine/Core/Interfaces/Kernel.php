@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Core\Interfaces;
+namespace Torq\Core\Interfaces;
 
 
-use Core\App\Application;
+use Torq\Core\App\Application;
 
 interface Kernel
 {
-    public function bootstrap();
+    public static function bootstrap();
 
     public function getApplication();
 

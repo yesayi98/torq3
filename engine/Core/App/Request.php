@@ -1,5 +1,5 @@
 <?php
-namespace Core\App;
+namespace Torq\Core\App;
 
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 class Request extends HttpRequest

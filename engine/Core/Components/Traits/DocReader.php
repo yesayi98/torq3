@@ -1,23 +1,23 @@
 <?php
 
 
-namespace Core\Components\Traits;
+namespace Torq\Core\Components\Traits;
 
 
 trait DocReader
 {
-
-    public function endpoint(string $method){
-        $reflection = (new \ReflectionClass($this))->getMethod($method);
-        $params = $this->phpdoc_params($reflection);
-        $this->params[$method] = $params;
+    protected static $params;
+    public static function endpoint(string $method){
+        $reflection = (new \ReflectionClass(get_called_class()))->getMethod($method);
+        $params = self::phpdoc_params($reflection);
+        self::$params[$method] = $params;
     }
 
-    public function getParam($method, $param, $default = null){
-        return $this->params[$method]['@'.$param];
+    public static function getParam($method, $param, $default = null){
+        return  self::$params[$method]['@'.$param];
     }
 
-    private function phpdoc_params(\ReflectionMethod $method) : array
+    private static function phpdoc_params(\ReflectionMethod $method) : array
     {
         // Retrieve the full PhpDoc comment block
         $doc = $method->getDocComment();

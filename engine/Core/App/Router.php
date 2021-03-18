@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Core\App;
+namespace Torq\Core\App;
 
-use Core\Components\UrlParser;
-use Core\Interfaces\Controller;
-use Core\Interfaces\Module;
+use Torq\Core\Components\UrlParser;
+use Torq\Core\Interfaces\Controller;
+use Torq\Core\Interfaces\Module;
 use Symfony\Component\HttpFoundation\Request;
 
 class Router
@@ -93,23 +93,25 @@ class Router
         $this->setController($controllerName);
 
         $this->setAction($parsedUrl->getChunk(1, $this->getRoute()['action']));
-        $this->controller->endpoint($this->action);
-        $parameters = $this->controller->getParam($this->action,'parameter');
+        try {
+            forward_static_call(array($this->controller, 'endpoint'), $this->action);
+        }catch (\Exception $exception){
+            die('Action not exist');
+        }
+        $parameters = forward_static_call(array($this->controller, 'getParam'), $this->action, 'parameter');
         if (!empty($parameters)){
             foreach ($parameters as $parameter) {
                 list($param, $value) = explode('|', $parameter);
-                $this->request->attributes->set($param, $parsedUrl->getChunk((int) $value));
+                $this->request->query->set($param, $parsedUrl->getChunk((int) $value));
             }
         }
-
-        return $this->controller->{$this->action}();
     }
 
     /**
      * @param $moduleName
      */
     protected function setModule($moduleName){
-        $modulePath = '\\Core\\Components\\Modules\\'.ucfirst($moduleName);
+        $modulePath = '\\Torq\\Core\\Components\\Modules\\'.ucfirst($moduleName);
         $this->module = new $modulePath;
     }
 
@@ -117,11 +119,24 @@ class Router
         $controllerPath = $this->module->getPath('controller').ucfirst($controllerName).'Controller';
 
         if (class_exists ($controllerPath)){
-            $this->controller = new $controllerPath($this->request);
+            $this->controller = $controllerPath;
         }else{
-            $this->controller = new \Controllers\Frontend\ErrorController($this->request);
+            $this->controller = \Torq\Controllers\Frontend\ErrorController::class;
         }
     }
 
+    public function setAttributes(){
+        $this->request->attributes->set('_module', $this->module);
+        $this->request->attributes->set('_controller', $this->controller);
+        $this->request->attributes->set('_action', $this->action);
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
 
 }

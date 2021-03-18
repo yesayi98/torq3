@@ -1,9 +1,10 @@
 <?php
 
 
-namespace Core\App;
+namespace Torq\Core\App;
 
 use Doctrine\Common\Cache\PhpFileCache;
+use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager as ModelManager;
 
@@ -11,6 +12,7 @@ class EntityManager
 {
     private $application;
     private $entityManager;
+    private $schemaTool;
 
    public function __construct(Application $application){
        $this->application = $application;
@@ -18,7 +20,7 @@ class EntityManager
        $proxyDir = $application->getAppConfig('proxy_dir');
 
        $cache = new PhpFileCache(
-           $application->getAppConfig('cache_dir')
+           $application->getBasePath().$application->getAppConfig('cache_dir').'/models'
        );
 
        $modelDirs = $application->getAppConfig('model_dirs');
@@ -31,9 +33,15 @@ class EntityManager
        }catch(\Exception $exception){
            die($exception->getMessage());
        }
+
+       $this->schemaTool = new SchemaTool($this->entityManager);
    }
 
    public function getManager(){
        return $this->entityManager;
+   }
+
+   public function getSchemaTool(){
+       return $this->schemaTool;
    }
 }

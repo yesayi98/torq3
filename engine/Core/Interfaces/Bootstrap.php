@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Interfaces;
+namespace Torq\Core\Interfaces;
 
 
 interface Bootstrap
