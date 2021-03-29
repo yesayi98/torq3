@@ -3,9 +3,19 @@
 
 namespace Torq\Core\Components;
 use Torq\Core\Interfaces\Model as ModelInterface;
+use Torq\Core\Components\Traits\TimeStamp;
+use Torq\Core\Components\Traits\ModelStaticMethodsTrait;
 
 abstract class Model implements ModelInterface
 {
+
+    use TimeStamp, ModelStaticMethodsTrait;
+
+    public function __construct()
+    {
+        $this->setUpdatedAt();
+        $this->setCreatedAt();
+    }
 
     /**
      * @return mixed
@@ -21,10 +31,12 @@ abstract class Model implements ModelInterface
     public function save()
     {
         $entityManager = Container()->get('db')->getManager();
+        $this->setUpdatedAt();
 
         if (!$this->getId()){
             return $this->create();
         }
+
 
         $entityManager->merge($this);
         $entityManager->flush();
@@ -52,21 +64,28 @@ abstract class Model implements ModelInterface
         $entityManager->flush();
     }
 
-    /**
-     * @param int $id
-     * @return mixed
-     */
-    public function find(int $id){
-        $entityManager = Container()->get('db')->getManager();
-
-        return $entityManager->getRepository(get_called_class())->find($id);
+    public function get($attribute){
+        return $this->$attribute;
     }
 
+    /**
+     * @param array|string $attribute
+     * @param null|mixed $value
+     * @return $this
+     */
+    public function set($attribute, $value = null){
+        if (!is_array($attribute)){
+            $this->$attribute = $value;
+        }else{
+            foreach ($attribute as $key => $item) {
+                $this->key = $item;
+            }
+        }
 
-    public static function __callStatic($method, $arguments)
-    {
-        $instance = new (get_called_class());
+        return $this;
+    }
 
-        return $instance->$method(...$arguments);
+    public function getRepository(){
+        return self::getEntityManager()->getRepository(get_called_class());
     }
 }

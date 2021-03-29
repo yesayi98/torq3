@@ -12,12 +12,14 @@ class IndexController extends Controller
 {
     public function index(){
         $entityManager = Container()->get('db')->getManager();
-        $product = new Product();
-        $product->setName('product');
+        $product = Product::find(1);
+        $product->setName('Abranq');
+        $product->setPrice(4000);
+        $product->setDiscountedPrice(4001);
 
         $product->save();
-
         dd($product);
+
         $this->view(['gago' => '123']);
     }
 }

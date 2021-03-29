@@ -7,6 +7,8 @@ use Doctrine\Common\Cache\PhpFileCache;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager as ModelManager;
+use Doctrine\DBAL\Types\Type;
+use Torq\Core\Components\Doctrine\UTCDateTimeType;
 
 class EntityManager
 {
@@ -25,6 +27,9 @@ class EntityManager
 
        $modelDirs = $application->getAppConfig('model_dirs');
        $useSimpleAnnotationReader = $application->getAppConfig('use_annotation');
+
+       Type::overrideType('datetime', UTCDateTimeType::class);
+       Type::overrideType('datetimetz', UTCDateTimeType::class);
 
        $config = Setup::createAnnotationMetadataConfiguration($modelDirs, $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
        $conn = $application->getDatabaseConfig();
