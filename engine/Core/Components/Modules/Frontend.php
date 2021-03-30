@@ -23,4 +23,8 @@ class Frontend implements Module
     public function getPath($path, $default = null){
         return !empty($this->paths[$path])?$this->paths[$path]:$default;
     }
+
+    public function getName(){
+        dd(__CLASS__);
+    }
 }

@@ -4,6 +4,7 @@
 namespace Torq\Core\Components;
 
 
+use Torq\Core\App\View;
 use Torq\Core\Components\Modules\Widget;
 use Torq\Core\Interfaces\Controller as ControllerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,6 +24,13 @@ abstract class Controller implements ControllerInterface
 
     protected $responseParams;
 
+    protected $view;
+
+    public function __construct()
+    {
+        $this->view = new View($this);
+    }
+
     public function __invoke(Request $request)
     {
         $this->request = $request;
@@ -35,8 +43,8 @@ abstract class Controller implements ControllerInterface
         return $this->generateResponse();
     }
 
-    public function view($params){
-        $this->responseParams = $params;
+    public function view(){
+        return $this->view;
     }
 
     /**
@@ -50,5 +58,13 @@ abstract class Controller implements ControllerInterface
     protected function generateJsonResponse(): JsonResponse
     {
         return JsonResponse::create($this->responseParams);
+    }
+
+    /**
+     * @return Request|null
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 }

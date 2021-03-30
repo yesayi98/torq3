@@ -2,6 +2,7 @@
 namespace Torq\Core\App;
 
 
+use Torq\Core\Components\Helpers\ViewHelper;
 use Torq\Core\Interfaces\Kernel;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -85,6 +86,7 @@ class Application
         $container->register('db', EntityManager::class)->addArgument($this);
         $container->register('router', Router::class)->addArgument($request);
         $container->register('session', Session::class);
+        $container->register('view_helper', ViewHelper::class);
         $container->register('events', EventDispatcher::class);
         $container->register('controller_resolver', ControllerResolver::class);
         $container->register('argument_resolver', ArgumentResolver::class);

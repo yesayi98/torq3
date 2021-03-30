@@ -11,15 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 class IndexController extends Controller
 {
     public function index(){
-        $entityManager = Container()->get('db')->getManager();
         $product = Product::find(1);
         $product->setName('Abranq');
         $product->setPrice(4000);
         $product->setDiscountedPrice(4001);
 
         $product->save();
-        dd($product);
 
-        $this->view(['gago' => '123']);
+        $this->view()->assign(['gago' => '123']);
     }
 }
