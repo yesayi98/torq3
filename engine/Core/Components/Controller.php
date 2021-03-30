@@ -6,6 +6,7 @@ namespace Torq\Core\Components;
 
 use Torq\Core\App\View;
 use Torq\Core\Components\Modules\Widget;
+use Torq\Core\Components\Traits\Getter;
 use Torq\Core\Interfaces\Controller as ControllerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Torq\Core\App\Response as AppResponse;
 
 abstract class Controller implements ControllerInterface
 {
-    use DocReader;
+    use DocReader, Getter;
 
     /**
      * @var Request
@@ -26,14 +27,10 @@ abstract class Controller implements ControllerInterface
 
     protected $view;
 
-    public function __construct()
-    {
-        $this->view = new View($this);
-    }
-
     public function __invoke(Request $request)
     {
         $this->request = $request;
+        $this->view = new View($this);
         $this->{$request->attributes->get('_action')}();
 
         if ($request->attributes->get('_module') instanceof Widget){

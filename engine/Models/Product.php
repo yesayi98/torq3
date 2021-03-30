@@ -19,7 +19,7 @@ class Product extends Model
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     protected $name;
 
@@ -46,7 +46,7 @@ class Product extends Model
         $this->name = $name;
     }
     /**
-     * @param mixed $name
+     * @param mixed $description
      */
     public function setDescription($description): void
     {

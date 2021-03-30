@@ -4,9 +4,10 @@
 namespace Torq\Core\Components\Modules;
 
 
-use Torq\Core\Interfaces\Module;
+use Torq\Core\Components\Module;
+use Torq\Core\Interfaces\Module as ModuleInterface;
 
-class Frontend implements Module
+class Frontend extends Module implements ModuleInterface
 {
     protected $paths = [
         'controller' => 'Torq\\Controllers\\Frontend\\',
@@ -24,7 +25,4 @@ class Frontend implements Module
         return !empty($this->paths[$path])?$this->paths[$path]:$default;
     }
 
-    public function getName(){
-        dd(__CLASS__);
-    }
 }

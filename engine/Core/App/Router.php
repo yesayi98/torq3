@@ -41,6 +41,8 @@ class Router
      */
     protected $controller;
 
+    public static $instance;
+
     /**
      * @var string
      */
@@ -137,6 +139,20 @@ class Router
     public function getRequest(): Request
     {
         return $this->request;
+    }
+
+
+    public static function __callStatic($name, $arguments)
+    {
+        // TODO: Implement __callStatic() method.
+        if ($name === 'run'){
+            if (self::$instance) {
+                self::$instance = new self(...$arguments);
+            }
+
+            self::$instance->setRequest(...$arguments);
+            return self::$instance;
+        }
     }
 
 }

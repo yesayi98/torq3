@@ -4,9 +4,10 @@
 namespace Torq\Core\Components\Modules;
 
 
-use Torq\Core\Interfaces\Module;
+use Torq\Core\Components\Module;
+use Torq\Core\Interfaces\Module as ModuleInterface;
 
-class Backend implements Module
+class Backend extends Module implements ModuleInterface
 {
     protected $paths = [
         'controller' => 'Torq\\Controllers\\Backend\\',

@@ -11,13 +11,13 @@ trait TimeStamp
 {
 
     /**
-     * @Column(type="datetimetz", options={"default": "CURRENT_TIMESTAMP"}, columnDefinition="DATETIME on update CURRENT_TIMESTAMP")
+     * @Column(type="datetimetz", options={"default": "CURRENT_TIMESTAMP"})
      * @var \datetime
      */
     protected $updated_at;
 
     /**
-     * @Column(type="datetimetz", options={"default": "CURRENT_TIMESTAMP"}, columnDefinition="DATETIME on INSERT CURRENT_TIMESTAMP")
+     * @Column(type="datetimetz", options={"default": "CURRENT_TIMESTAMP"})
      * @var \datetime
      */
     protected $created_at;

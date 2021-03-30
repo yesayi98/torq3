@@ -109,9 +109,8 @@ class Bootstrap implements BootstrapInterface
         date_default_timezone_set($this->application->getAppConfig('timezone'));
         $this->session->start();
         try {
-            $route = new Router($this->request);
-            $route->run();
-            var_dump($route);exit;
+            $response = Router::run($this->request);
+            var_dump($response);exit;
         }catch (\Exception $exception){
             die($exception->getMessage());
         }
