@@ -23,6 +23,8 @@ abstract class Controller implements ControllerInterface
      */
     protected $request;
 
+    protected $reflect;
+
     protected $responseParams;
 
     protected $view;
@@ -30,6 +32,7 @@ abstract class Controller implements ControllerInterface
     public function __invoke(Request $request)
     {
         $this->request = $request;
+        $this->reflect = new \ReflectionClass(get_called_class());
         $this->view = new View($this);
         $this->{$request->attributes->get('_action')}();
 

@@ -7,6 +7,6 @@ namespace Torq\Core\Components\Traits;
 trait Getter
 {
     public function getName() {
-        dd(self::class);
+        return $this->reflect->getShortName();
     }
 }
