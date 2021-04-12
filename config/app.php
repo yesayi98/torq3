@@ -70,5 +70,7 @@ return [
       'engine/Models',
     ],
 
-    'use_annotation' => false
+    'use_annotation' => false,
+    'view_driver' => '\Smarty',
+    'charset' => 'UTF-8'
 ];

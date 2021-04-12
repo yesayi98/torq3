@@ -17,7 +17,6 @@ class IndexController extends Controller
         $product->setDiscountedPrice(4001);
 
         $product->save();
-dd($this->view());
-        $this->view()->assign(['gago' => '123']);
+        $this->view()->assign('gago', 123);
     }
 }

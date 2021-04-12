@@ -11,8 +11,7 @@ use Torq\Core\Interfaces\Controller as ControllerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Torq\Core\Components\Traits\DocReader;
-use Symfony\Component\HttpFoundation\Response;
-use Torq\Core\App\Response as AppResponse;
+use Torq\Core\App\Response;
 
 abstract class Controller implements ControllerInterface
 {
@@ -52,7 +51,10 @@ abstract class Controller implements ControllerInterface
      */
     protected function generateResponse(): Response
     {
-        return Response::create(new AppResponse($this));
+        $this->view->render();
+        $response = new Response($this);
+        $response->prepare($this->request);
+        return $response;
     }
 
     protected function generateJsonResponse(): JsonResponse
