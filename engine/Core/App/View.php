@@ -21,17 +21,27 @@ class View
      */
     private $templatePath;
 
+    /**
+     * View constructor.
+     * @param ControllerInterface $controller
+     */
     public function __construct(ControllerInterface $controller)
     {
+        /** @var Application $app */
         $app = Container()->get('application');
+
         $driver = $app->getAppConfig('view_driver');
         $this->viewDriver = new $driver();
 
         $this->controller = $controller;
+
         $this->request = $controller->getRequest();
         $this->viewDriver->setTemplateDir($app->getBasePath().$app->getAppConfig('view_path'))
-            ->setCompileDir($app->getAppConfig('cache_dir').'/templates_c')
+            ->setCompileDir($app->getBasePath().'\\'.$app->getAppConfig('cache_dir').'/templates_c')
             ->setCacheDir($app->getAppConfig('cache_dir'));
+        $this->viewDriver->cache_lifetime = $app->getAppConfig('cache_time');
+        $this->viewDriver->caching = !$app->getAppConfig('debug');
+        $this->viewDriver->compile_check = !$app->getAppConfig('debug');
         $this->setHelpers();
         $this->setTemplatePath();
         $this->viewDriver->assign('controller', $controller);

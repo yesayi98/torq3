@@ -9,7 +9,11 @@
 </head>
 <body>
 {block name='app.body'}
-   {$gago} {debug}
+    <ul>
+    {foreach $products as $product}
+        <li>{$product->getName()} {$product->getPrice()}</li>
+    {/foreach}
+    </ul>
 {/block}
 </body>
 </html>

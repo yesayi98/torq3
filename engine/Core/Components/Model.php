@@ -2,6 +2,7 @@
 
 
 namespace Torq\Core\Components;
+use Torq\Core\Components\Traits\ArrayConvertable;
 use Torq\Core\Interfaces\Model as ModelInterface;
 use Torq\Core\Components\Traits\TimeStamp;
 use Torq\Core\Components\Traits\ModelStaticMethodsTrait;
@@ -9,7 +10,7 @@ use Torq\Core\Components\Traits\ModelStaticMethodsTrait;
 abstract class Model implements ModelInterface
 {
 
-    use TimeStamp, ModelStaticMethodsTrait;
+    use TimeStamp, ModelStaticMethodsTrait, ArrayConvertable;
 
     public function __construct()
     {
